@@ -1,5 +1,6 @@
 #include "dedicated/dedicated.h"
 #include "plugins/pluginmanager.h"
+#include "config/profile.h"
 
 #include <iostream>
 #include <wchar.h>
@@ -246,7 +247,7 @@ static LPSTR WINAPI h_GetCommandLineA()
 		if (!ignoreStartupArgs)
 		{
 
-			cmdlineArgFile = std::ifstream(!isDedi ? "ns_startup_args.txt" : "ns_startup_args_dedi.txt");
+			cmdlineArgFile = std::ifstream(GetNorthstarPrefix() + !isDedi ? "ns_startup_args.txt" : "ns_startup_args_dedi.txt");
 
 			if (cmdlineArgFile)
 			{
