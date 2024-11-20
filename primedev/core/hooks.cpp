@@ -247,7 +247,7 @@ static LPSTR WINAPI h_GetCommandLineA()
 		if (!ignoreStartupArgs)
 		{
 
-			cmdlineArgFile = std::ifstream(GetNorthstarPrefix() + !isDedi ? "/ns_startup_args.txt" : "/ns_startup_args_dedi.txt");
+			cmdlineArgFile = std::ifstream(GetNorthstarPrefix() + "/ns_startup_args.txt");
 
 			if (cmdlineArgFile)
 			{
