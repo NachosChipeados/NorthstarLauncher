@@ -419,16 +419,16 @@ int main(int argc, char* argv[])
 	{
 		PrependPath();
 
-		if (!fs::exists("ns_startup_args.txt"))
+		if (!fs::exists(GetNorthstarPrefix() + "/ns_startup_args.txt"))
 		{
-			std::ofstream file("ns_startup_args.txt");
+			std::ofstream file(GetNorthstarPrefix() + "/ns_startup_args.txt");
 			std::string defaultArgs = "-multiple";
 			file.write(defaultArgs.c_str(), defaultArgs.length());
 			file.close();
 		}
-		if (!fs::exists("ns_startup_args_dedi.txt"))
+		if (!fs::exists(GetNorthstarPrefix() + "/ns_startup_args_dedi.txt"))
 		{
-			std::ofstream file("ns_startup_args_dedi.txt");
+			std::ofstream file(GetNorthstarPrefix() + "/ns_startup_args_dedi.txt");
 			std::string defaultArgs = "+setplaylist private_match";
 			file.write(defaultArgs.c_str(), defaultArgs.length());
 			file.close();
