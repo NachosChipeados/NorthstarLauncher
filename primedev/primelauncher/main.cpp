@@ -421,21 +421,6 @@ int main(int argc, char* argv[])
 	{
 		PrependPath();
 
-		if (!fs::exists(GetNorthstarPrefix() + "/ns_startup_args.txt"))
-		{
-			std::ofstream file(GetNorthstarPrefix() + "/ns_startup_args.txt");
-			std::string defaultArgs = "-multiple";
-			file.write(defaultArgs.c_str(), defaultArgs.length());
-			file.close();
-		}
-		if (!fs::exists(GetNorthstarPrefix() + "/ns_startup_args_dedi.txt"))
-		{
-			std::ofstream file(GetNorthstarPrefix() + "/ns_startup_args_dedi.txt");
-			std::string defaultArgs = "+setplaylist private_match";
-			file.write(defaultArgs.c_str(), defaultArgs.length());
-			file.close();
-		}
-
 		std::cout << "[*] Loading tier0.dll" << std::endl;
 		swprintf_s(buffer, L"%s\\bin\\x64_retail\\tier0.dll", exePath);
 		hTier0Module = LoadLibraryExW(buffer, 0, LOAD_WITH_ALTERED_SEARCH_PATH);
