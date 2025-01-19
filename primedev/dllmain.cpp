@@ -44,6 +44,10 @@ bool InitialiseNorthstar()
 	if (bInitialised)
 		return false;
 
+	InitialiseVersion();
+
+	atexit(CloseConsole);
+
 	bInitialised = true;
 
 	InitialiseNorthstarPrefix();
@@ -52,7 +56,6 @@ bool InitialiseNorthstar()
 	InitialiseConsole();
 	// initialise logging before most other things so that they can use spdlog and it have the proper formatting
 	InitialiseLogging();
-	InitialiseVersion();
 	CreateLogFiles();
 
 	g_pCrashHandler = new CCrashHandler();

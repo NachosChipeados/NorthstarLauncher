@@ -140,3 +140,5 @@ protected:
 	void custom_sink_it_(const custom_log_msg& msg);
 	void flush_() override;
 };
+
+void CloseConsole();

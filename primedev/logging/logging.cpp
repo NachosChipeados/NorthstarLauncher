@@ -5,6 +5,7 @@
 #include "core/tier0.h"
 #include "util/version.h"
 #include "spdlog/sinks/basic_file_sink.h"
+#include "util/version.h"
 
 #include <winternl.h>
 #include <cstdlib>
@@ -12,6 +13,8 @@
 #include <sstream>
 
 std::vector<std::shared_ptr<ColoredLogger>> loggers {};
+
+static PROCESS_INFORMATION processInfo {};
 
 namespace NS::log
 {
@@ -120,12 +123,22 @@ void CustomSink::custom_log(const custom_log_msg& msg)
 	custom_sink_it_(msg);
 }
 
+void CloseConsole()
+{
+	spdlog::info("Closing console now.");
+	TerminateProcess(processInfo.hProcess, 0);
+}
+
 void InitialiseConsole()
 {
-	if (AllocConsole() != FALSE)
+	bool hasAttached = AttachConsole(-1);
+	if (!hasAttached)
 	{
-		freopen("CONOUT$", "w", stdout);
-		freopen("CONOUT$", "w", stderr);
+		if (strstr(GetCommandLineA(), "-showconsole") || IsDevBuild && AllocConsole() != FALSE)
+		{
+			freopen("CONOUT$", "w", stdout);
+			freopen("CONOUT$", "w", stderr);
+		}
 	}
 
 	// this if statement is adapted from r5sdk
